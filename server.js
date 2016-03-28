@@ -75,7 +75,7 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
   // Bootstrap scheduler
   const
     sync = require('./workers/sync'),
-    job = new cron.CronJob('0 * * * * *', () => {
+    job = new cron.CronJob('0 */5 * * * *', () => {
       sync(bot);
       log('tick')
     }, null, true);
