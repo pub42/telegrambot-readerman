@@ -49,10 +49,15 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
 
   const
     bot = new TelegramBot(env.TELEGRAM_BOT_TOKEN, {
-      //webHook: true
-      polling: true
+      webHook: env.NODE_ENV === 'production' ? {
+        port: env.PORT
+      } : false,
+      polling: env.NODE_ENV === 'development'
     });
 
+  if (env.NODE_ENV === 'production') {
+    bot.setWebHook(env.TELEGRAM_WEBHOOK_URL);
+  }
 
   log('Created bot. Registering commands...');
 
