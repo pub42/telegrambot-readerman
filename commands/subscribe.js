@@ -21,7 +21,6 @@ const
 
         if (feed) { return resolve(feed); }
 
-        console.log(fetched);
         Feed.create({
           url: url,
           title: fetched.meta.title,
@@ -30,7 +29,6 @@ const
         }, (e, feed) => {
           if (e) { return reject(e); }
 
-          console.log(feed);
           resolve(feed);
         });
       });

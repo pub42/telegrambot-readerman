@@ -82,8 +82,6 @@ module.exports = exports = (bot) => {
       return Promise.map(feeds, (feed) => {
         const record = feed.records && feed.records[0];
 
-        console.log(feed);
-
         return bot.sendMessage(message.from.id, record ? [
           `*[${feed.meta.title}]*`,
           `*${record.title}*`,
