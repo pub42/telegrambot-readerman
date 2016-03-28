@@ -76,7 +76,7 @@ module.exports = exports = (bot) => {
     fetch(url).then((feed) => {
       done(url, feed, message);
     }).catch((e) => {
-      console.log(e.stack);
+      console.error(e.stack);
       bot.sendMessage(message.from.id, '올바르지 않은 URL이거나, 피드가 존재하지 않습니다.');
     });
   };

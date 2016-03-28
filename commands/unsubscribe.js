@@ -72,7 +72,7 @@ module.exports = exports = (bot) => {
         `${result.message || '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ'}`
       , { parse_mode: 'Markdown' });
     }).catch((e) => {
-      console.log(e.stack);
+      console.error(e.stack);
       bot.sendMessage(msg.from.id, '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ');
     })
 
