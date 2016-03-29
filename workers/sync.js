@@ -5,12 +5,17 @@
  */
 const
   Promise     = require('bluebird'),
+  debug       = require('debug'),
   _           = require('underscore'),
   mongoose    = require('mongoose'),
   fetch       = require('../lib/fetch'),
   markdownify = require('../lib/markdownify'),
   Feed        = mongoose.model('Feed'),
   Subscribe   = mongoose.model('Subscribe');
+
+
+const
+  log         = debug('telegrambot-reanderman:sync');
 
 
 const getFeeds = () => {
@@ -107,7 +112,7 @@ module.exports = exports = (bot) => {
           fetched: fetched
         });
       }).catch((e) => {
-        console.error(e.stack);
+        log(e.stack);
         return Promise.resolve({
           updated: false,
           feed: feed
@@ -121,8 +126,8 @@ module.exports = exports = (bot) => {
   }).then((feeds) => {
     return Promise.map(feeds, (feed) => publishFeed(bot, feed.feed, feed.fetched, feed.lastRecordLink), {concurrency: 1});
   }).then((results) => {
-    console.log('sent %d messages of %d feeds', _.flatten(results).length, results.length);
+    log('sent %d messages of %d feeds', _.flatten(results).length, results.length);
   }).catch((e) => {
-    console.error(e.stack);
+    log(e.stack);
   });
 };

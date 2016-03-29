@@ -6,10 +6,13 @@
  */
 const
   _         = require('underscore'),
+  debug     = require('debug'),
   mongoose  = require('mongoose'),
   User      = mongoose.model('User'),
   Subscribe = mongoose.model('Subscribe');
 
+const
+  log       = debug('telegrambot-reanderman:command:list');
 
 const
   getSubscribedFeeds = (from) => {
@@ -39,7 +42,7 @@ module.exports = exports = (bot) => {
         `${feeds.length}개의 피드를 구독 중입니다.\n\n${feeds.map((feed) => `${feed.number} - ${feed.title}\n${feed.url}`).join('\n')}` :
         '구독 중인 피드가 없습니다. +0+');
     }).catch((e) => {
-      console.error(e.stack);
+      log(e.stack);
       bot.sendMessage(message.from.id, '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ');
     })
   });

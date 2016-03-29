@@ -5,6 +5,7 @@
  */
 const
   Promise     = require('bluebird'),
+  debug       = require('debug'),
   _           = require('underscore'),
   mongoose    = require('mongoose'),
   markdownify = require('../lib/markdownify'),
@@ -13,6 +14,8 @@ const
   Feed        = mongoose.model('Feed'),
   Subscribe   = mongoose.model('Subscribe');
 
+const
+  log         = debug('telegrambot-reanderman:command:read');
 
 const getUser = (from) => {
   return new Promise((resolve, reject) => {
@@ -96,7 +99,7 @@ module.exports = exports = (bot) => {
         });
       })
     }).catch((e) => {
-      console.error(e.stack);
+      log(e.stack);
       bot.sendMessage(message.from.id, '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ');
     });
   });

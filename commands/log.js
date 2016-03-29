@@ -6,7 +6,11 @@
 
 const
   mongoose  = require('mongoose'),
+  debug     = require('debug'),
   Message   = mongoose.model('Message');
+
+const
+  log       = debug('telegrambot-reanderman:log');
 
 module.exports = exports = (bot) => {
   bot.onText(/(.*)/, (msg) => {
@@ -32,7 +36,7 @@ module.exports = exports = (bot) => {
       date: new Date(msg.date * 1000),
       text: msg.text
     }, (e) => {
-      if (e) { return console.error(e); }
+      if (e) { return log(e); }
     });
   });
 };

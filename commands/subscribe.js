@@ -4,11 +4,15 @@
  * Module dependencies.
  */
 const
+  debug           = require('debug'),
   mongoose        = require('mongoose'),
   User            = mongoose.model('User'),
   Feed            = mongoose.model('Feed'),
   Subscribe       = mongoose.model('Subscribe'),
   fetch           = require('../lib/fetch');
+
+const
+  log             = debug('telegrambot-reanderman:command:subscribe');
 
 
 const
@@ -76,7 +80,7 @@ module.exports = exports = (bot) => {
     fetch(url).then((feed) => {
       done(url, feed, message);
     }).catch((e) => {
-      console.error(e.stack);
+      log(e.stack);
       bot.sendMessage(message.from.id, '올바르지 않은 URL이거나, 피드가 존재하지 않습니다.');
     });
   };
@@ -103,7 +107,7 @@ module.exports = exports = (bot) => {
           parse_mode: 'Markdown'
         });
       }).catch((e) => {
-        console.error(e.stack);
+        log(e.stack);
         bot.sendMessage(message.from.id, '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ');
       });
     });
