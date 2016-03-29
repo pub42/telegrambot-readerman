@@ -87,7 +87,8 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
       }).then(() => {
         return Promise.resolve(true);
       }).catch((e) => {
-        return Promise.reject(false);
+        console.error(e);
+        return Promise.resolve(false);
       });
     }, {concurrency: 10}).then((results) => {
       log('sent: %d, failed: %d', results.filter((x) => x).length, results.filter((x) => !x).length);
