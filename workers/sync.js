@@ -102,8 +102,7 @@ module.exports = exports = (bot) => {
       return fetch(feed.url)
       .then((fetched) => {
         return Promise.resolve({
-          updated: (fetched.meta.updatedAt.getTime() > feed.lastModified.getTime()) &&
-            (fetched.records[0].link !== feed.lastRecordLink),
+          updated: (fetched.records[0].link !== feed.lastRecordLink),
           feed: feed,
           fetched: fetched
         });
