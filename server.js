@@ -5,7 +5,6 @@
  */
 
 const
-  Promise         = require('bluebird'),
   path            = require('path'),
   cron            = require('cron'),
   mongoose        = require('mongoose'),
