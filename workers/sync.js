@@ -127,7 +127,9 @@ module.exports = exports = (bot) => {
     return Promise.map(feeds, (feed) => publishFeed(bot, feed.feed, feed.fetched, feed.lastRecordLink), {concurrency: 1});
   }).then((results) => {
     log('sent %d messages of %d feeds', _.flatten(results).length, results.length);
+    process.exit(0);
   }).catch((e) => {
     log(e.stack);
+    process.exit(1);
   });
 };

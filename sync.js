@@ -5,7 +5,6 @@
  */
 
 const
-  Promise         = require('bluebird'),
   path            = require('path'),
   cron            = require('cron'),
   mongoose        = require('mongoose'),
@@ -47,28 +46,15 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
   requireDir('./models');
   log('Bootstrapped models.');
 
+  // Create push-only bot
   const
     bot = new TelegramBot(env.TELEGRAM_BOT_TOKEN, {
-      webHook: env.NODE_ENV === 'production' ? {
-        port: env.PORT
-      } : false,
-      polling: env.NODE_ENV === 'development'
+      webHook: false,
+      polling: false
     });
 
-  if (env.NODE_ENV === 'production') {
-    bot.setWebHook(env.TELEGRAM_WEBHOOK_URL);
-  }
+  log('Created bot. Starting sync...');
 
-  log('Created bot. Registering commands...');
-
-  // Bootstrap commands
-  require('./commands/start')(bot);
-  require('./commands/subscribe')(bot);
-  require('./commands/help')(bot);
-  require('./commands/read')(bot);
-  require('./commands/list')(bot);
-  require('./commands/unsubscribe')(bot);
-  require('./commands/log')(bot);
-
-  log('Commands were registered. Enjoy!');
+  // Bootstrap scheduler
+  require('./workers/sync')(bot);
 });
