@@ -39,6 +39,7 @@
     "redis": "^2.6.0-0",
     "request": "^2.69.0",
     "require-dir": "^0.3.0",
+    "sanitize-html": "^1.11.4",
     "to-markdown": "^2.0.1",
     "underscore": "^1.8.3"
   }
