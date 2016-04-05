@@ -17,7 +17,6 @@ const
 const FeedSchema = new mongoose.Schema({
   url: String,
   title: String,
-  lastModified: Date,
   lastRecordLink: String,
   number: Number
 });

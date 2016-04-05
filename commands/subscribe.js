@@ -28,7 +28,6 @@ const
         Feed.create({
           url: url,
           title: fetched.meta.title,
-          lastModified: fetched.meta.updatedAt,
           lastRecordLink: (fetched.records && fetched.records.length) ? fetched.records[0].link : null
         }, (e, feed) => {
           if (e) { return reject(e); }

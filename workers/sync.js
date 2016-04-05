@@ -46,8 +46,7 @@ const updateFeed = (feed, fetched) => {
   return new Promise((resolve, reject) => {
     let _lastRecordLink = feed.lastRecordLink;
 
-    feed.lastModified = fetched.meta.updatedAt;
-    feed.lastRecordLink = fetched.records[0].link;
+    feed.lastRecordLink = fetched.meta.lastRecordLink;
 
     feed.save((e) => {
       if (e) { return reject(e); }
@@ -107,7 +106,7 @@ module.exports = exports = (bot) => {
       return fetch(feed.url)
       .then((fetched) => {
         return Promise.resolve({
-          updated: (fetched.records[0].link !== feed.lastRecordLink),
+          updated: (fetched.meta.lastRecordLink !== feed.lastRecordLink),
           feed: feed,
           fetched: fetched
         });
