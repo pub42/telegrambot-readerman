@@ -24,13 +24,9 @@ const unsubscribe = (from, numberOrUrl) => {
 
       if (!user) { return reject(new Error(`Can't find user id ${from.id}`)); }
 
-      Feed.findOne({
-        $or: [{
-          number: numberOrUrl
-        }, {
-          url: numberOrUrl
-        }]
-      }).exec((e, feed) => {
+      const query = isNaN(+numberOrUrl) ? {url: numberOrUrl} : {number: +numberOrUrl};
+
+      Feed.findOne(query).exec((e, feed) => {
         if (e) { return reject(e); }
 
         if (!feed) {

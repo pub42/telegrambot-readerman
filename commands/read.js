@@ -35,13 +35,9 @@ const getUser = (from) => {
 
 const getFeed = (user, urlOrNumber) => {
   return new Promise((resolve, reject) => {
-    Feed.findOne({
-      $or: [{
-        url: urlOrNumber
-      }, {
-        number: urlOrNumber
-      }]
-    }).exec((e, feed) => {
+    const query = isNaN(+urlOrNumber) ? {url: urlOrNumber} : {number: +urlOrNumber};
+
+    Feed.findOne(query).exec((e, feed) => {
       if (e) { return reject(e); }
 
       if (!feed) { return resolve([]); }
