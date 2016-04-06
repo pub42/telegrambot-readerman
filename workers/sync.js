@@ -98,12 +98,13 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
             parse_mode: 'Markdown'
           });
         }, {concurrency: 1});
-      }, {concurrency: 2});
-    }).then((results) => {
-      resolve(results.length);
-    }).catch((e) => {
-      reject(e);
-    })
+      }, {concurrency: 2})
+      .then((results) => {
+        resolve(results.length);
+      }).catch((e) => {
+        reject(e);
+      });
+    });
   });
 };
 
