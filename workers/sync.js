@@ -60,6 +60,16 @@ const updateFeed = (feed, fetched) => {
   });
 };
 
+const silentSendMessage = (bot, id, message, options) => {
+  return new Promise((resolve, reject) => {
+    bot.sendMessage(id, message ,options)
+    .then((res) => {
+      resolve(res);
+    }).catch(() => {
+      resolve(false);
+    });
+  });
+};
 
 const publishFeed = (bot, feed, fetched, lastRecordLink) => {
   return new Promise((resolve, reject) => {
@@ -75,7 +85,7 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
 
       Promise.map(subscribes.map((subscribe) => subscribe.user), (user) => {
         return Promise.map(delta, (record) => {
-          return bot.sendMessage(user.id, record ? [
+          return silentSendMessage(bot, user.id, record ? [
             `*[${fetched.meta.title}]*`,
             `*${record.title}*`,
             `${record.author || ''}`,
@@ -86,8 +96,7 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
             `*[${fetched.meta.title}] 등록된 글이 없습니다! T0T *`
           ], {
             parse_mode: 'Markdown'
-          }).then((result) => Promise.resolve(true))
-            .catch(() => Promise.resolve(false));
+          });
         }, {concurrency: 1});
       }, {concurrency: 2});
     }).then((results) => {
@@ -97,6 +106,7 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
     })
   });
 };
+
 
 
 module.exports = exports = (bot) => {
