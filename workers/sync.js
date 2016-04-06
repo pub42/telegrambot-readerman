@@ -113,6 +113,7 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
 module.exports = exports = (bot) => {
   getFeeds()
   .then((feeds) => {
+    log('Got %d feed targets, fetching feeds...', feeds.length);
     return Promise.map(feeds, (feed) => {
       return fetch(feed.url)
       .then((fetched) => {
@@ -131,9 +132,11 @@ module.exports = exports = (bot) => {
     }, {concurrency: 2});
   }).then((feeds) => {
     const updatedFeeds = feeds.filter((feed) => feed && feed.updated);
+    log('Fetched %d feeds, there are %d updated feeds.', feeds.length, updatedFeeds.length);
 
     return Promise.map(updatedFeeds, (feed) => updateFeed(feed.feed, feed.fetched), {concurrency: 2});
   }).then((feeds) => {
+    log('Updated feed metadata into database. publishing feeds to subscribers...');
     return Promise.map(feeds, (feed) => publishFeed(bot, feed.feed, feed.fetched, feed.lastRecordLink), {concurrency: 1});
   }).then((results) => {
     log('sent %d messages of %d feeds', _.flatten(results).length, results.length);
