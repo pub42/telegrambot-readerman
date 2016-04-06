@@ -89,7 +89,7 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
           }).then((result) => Promise.resolve(true))
             .catch(() => Promise.resolve(false));
         }, {concurrency: 1});
-      }, {concurrency: 4});
+      }, {concurrency: 2});
     }).then((results) => {
       resolve(results.length);
     }).catch((e) => {
@@ -117,11 +117,11 @@ module.exports = exports = (bot) => {
           feed: feed
         });
       });
-    }, {concurrency: 4});
+    }, {concurrency: 2});
   }).then((feeds) => {
     const updatedFeeds = feeds.filter((feed) => feed && feed.updated);
 
-    return Promise.map(updatedFeeds, (feed) => updateFeed(feed.feed, feed.fetched), {concurrency: 4});
+    return Promise.map(updatedFeeds, (feed) => updateFeed(feed.feed, feed.fetched), {concurrency: 2});
   }).then((feeds) => {
     return Promise.map(feeds, (feed) => publishFeed(bot, feed.feed, feed.fetched, feed.lastRecordLink), {concurrency: 1});
   }).then((results) => {
