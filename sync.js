@@ -6,7 +6,6 @@
 
 const
   path            = require('path'),
-  cron            = require('cron'),
   mongoose        = require('mongoose'),
   autoIncrement   = require('mongoose-auto-increment'),
   debug           = require('debug'),

@@ -26,7 +26,6 @@
   "homepage": "https://github.com/mooyoul/telegrambot-readerman#readme",
   "dependencies": {
     "bluebird": "^3.3.4",
-    "cron": "^1.1.0",
     "debug": "^2.2.0",
     "dotenv": "^2.0.0",
     "feedparser": "^1.1.4",
