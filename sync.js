@@ -5,7 +5,6 @@
  */
 
 const
-  why             = require('why-is-node-running'),
   path            = require('path'),
   mongoose        = require('mongoose'),
   autoIncrement   = require('mongoose-auto-increment'),
@@ -58,9 +57,7 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
 
   // Register execution timeout
   setTimeout(() => {
-    log('Reached timeout. Printing out `why-is-node-running` result...');
-    why();
-    log('Exiting now!');
+    log('Reached timeout. Exiting now!');
     process.exit(1);
   }, EXECUTION_TIMEOUT);
 
