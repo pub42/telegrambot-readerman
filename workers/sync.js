@@ -114,15 +114,28 @@ module.exports = exports = (bot) => {
   getFeeds()
   .then((feeds) => {
     log('Got %d feed targets, fetching feeds...', feeds.length);
-    return Promise.map(feeds, (feed) => {
+    let
+      current = 0,
+      total = feeds.length;
+
+    return Promise.map(feeds, (feed, index) => {
+      log('fetching feed index %d: %s', index, feed.url);
+      let timeout = setTimeout(() => {
+        log('fetch not responding! url: %s', feed.url);
+      }, 1000 * 30);
+
       return fetch(feed.url)
       .then((fetched) => {
+        log('fetched %d of %d', ++current, total);
+        clearTimeout(timeout);
         return Promise.resolve({
           updated: (fetched.meta.lastRecordLink !== feed.lastRecordLink),
           feed: feed,
           fetched: fetched
         });
       }).catch((e) => {
+        clearTimeout(timeout);
+        log('fetched %d of %d', ++current, total);
         log(e.stack);
         return Promise.resolve({
           updated: false,
