@@ -5,6 +5,7 @@
  */
 
 const
+  why             = require('why-is-node-running'),
   path            = require('path'),
   mongoose        = require('mongoose'),
   autoIncrement   = require('mongoose-auto-increment'),
@@ -19,7 +20,8 @@ const
  */
 const
   log               = debug('telegrambot-reanderman:server'),
-  env               = process.env;
+  env               = process.env,
+  EXECUTION_TIMEOUT = 1000 * 60 * 10; // 10 minutes
 
 dotenv.load({
   path: path.join(__dirname, '.env')
@@ -53,6 +55,14 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
     });
 
   log('Created bot. Starting sync...');
+
+  // Register execution timeout
+  setTimeout(() => {
+    log('Reached timeout. Printing out `why-is-node-running` result...');
+    why();
+    log('Exiting now!');
+    process.exit(1);
+  }, EXECUTION_TIMEOUT);
 
   // Bootstrap scheduler
   require('./workers/sync')(bot);
