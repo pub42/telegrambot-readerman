@@ -126,7 +126,7 @@ module.exports = exports = (bot) => {
 
       return fetch(feed.url)
       .then((fetched) => {
-        log('fetched %d (%d of %d) (index: %d)', index, ++current, total);
+        log('fetched index %d (%d of %d)', index, ++current, total);
         clearTimeout(timeout);
         return Promise.resolve({
           updated: (fetched.meta.lastRecordLink !== feed.lastRecordLink),
@@ -135,7 +135,7 @@ module.exports = exports = (bot) => {
         });
       }).catch((e) => {
         clearTimeout(timeout);
-        log('fetched %d (%d of %d) (index: %d)', index, ++current, total);
+        log('fetched index %d (%d of %d)', index, ++current, total);
         log('ERR: feed %s got an error!', feed.url);
         log(e.stack);
         return Promise.resolve({
