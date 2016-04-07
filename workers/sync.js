@@ -121,12 +121,12 @@ module.exports = exports = (bot) => {
     return Promise.map(feeds, (feed, index) => {
       log('fetching feed index %d: %s', index, feed.url);
       let timeout = setTimeout(() => {
-        log('fetch not responding! url: %s', feed.url);
+        log('fetch not responding! index: %s, url: %s', index, feed.url);
       }, 1000 * 30);
 
       return fetch(feed.url)
       .then((fetched) => {
-        log('fetched %d of %d', ++current, total);
+        log('fetched %d (%d of %d) (index: %d)', index, ++current, total);
         clearTimeout(timeout);
         return Promise.resolve({
           updated: (fetched.meta.lastRecordLink !== feed.lastRecordLink),
@@ -135,7 +135,8 @@ module.exports = exports = (bot) => {
         });
       }).catch((e) => {
         clearTimeout(timeout);
-        log('fetched %d of %d', ++current, total);
+        log('fetched %d (%d of %d) (index: %d)', index, ++current, total);
+        log('ERR: feed %s got an error!', feed.url);
         log(e.stack);
         return Promise.resolve({
           updated: false,
