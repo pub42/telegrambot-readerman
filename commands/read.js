@@ -83,7 +83,8 @@ module.exports = exports = (bot) => {
 
         return bot.sendMessage(message.from.id, record ? [
           `*[${feed.meta.title}]*`,
-          `*${record.title}*`,
+          ``,
+          `[${record.title}](${record.link})`,
           `${record.author || ''}`,
           `[글 바로가기](${record.link})`,
           '',

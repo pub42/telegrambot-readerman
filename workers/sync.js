@@ -87,7 +87,8 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
         return Promise.map(delta, (record) => {
           return silentSendMessage(bot, user.id, record ? [
             `*[${fetched.meta.title}]*`,
-            `*${record.title}*`,
+            ``,
+            `[${record.title}](${record.link})`,
             `${record.author || ''}`,
             `[글 바로가기](${record.link})`,
             '',
