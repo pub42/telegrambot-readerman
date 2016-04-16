@@ -47,6 +47,7 @@ module.exports = exports = (bot) => {
         '본 RSS봇은 무료로 제공되는 로봇입니다.',
         '개발자 Telegram: @mooyoul',
         '개발자가 만든 좋은 변호사 찾는 로톡: https://www.lawtalk.co.kr/tg1',
+        'RSS봇 Github: https://github.com/mooyoul/telegrambot-readerman',
         '',
         '다음 명령어로 RSS봇을 시작해보세요!'
       ].join('\n'), {
