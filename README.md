@@ -4,6 +4,14 @@
 
 Telegram Bot API를 사용하는 RSS 피드 봇
 
+## Screenshots
+![Screenshot 1](https://raw.githubusercontent.com/mooyoul/telegrambot-readerman/master/images/readermanbot_01.png)
+
+![Screenshot 2](https://raw.githubusercontent.com/mooyoul/telegrambot-readerman/master/images/readermanbot_02.png)
+
+![Screenshot 3](https://raw.githubusercontent.com/mooyoul/telegrambot-readerman/master/images/readermanbot_03.png)
+
+
 ## Requirements
 
 * Node.js >= 4
