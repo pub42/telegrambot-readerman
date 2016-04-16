@@ -90,7 +90,6 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
             ``,
             `[${record.title}](${record.link})`,
             `${record.author || ''}`,
-            `[글 바로가기](${record.link})`,
             '',
             `${markdownify(record.summary || record.description).substr(0, 200)}...[더 읽기](${record.link})`
           ].join('\n') : [
