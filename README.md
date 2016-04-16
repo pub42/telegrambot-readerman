@@ -1,5 +1,6 @@
 # telegrambot-readerman
 [![Dependency Status](https://david-dm.org/mooyoul/telegrambot-readerman.svg)](https://david-dm.org/mooyoul/telegrambot-readerman) [![Known Vulnerabilities](https://snyk.io/test/github/mooyoul/telegrambot-readerman/badge.svg)](https://snyk.io/test/github/mooyoul/telegrambot-readerman) [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://mooyoul.mit-license.org/)
+[![Author Telegram](https://img.shields.io/badge/Telegram-%40mooyoul-blue.svg)](https://telegram.me/mooyoul) [![ReadermanBot Telegram](https://img.shields.io/badge/Telegram-%40ReadermanBot-blue.svg)](https://telegram.me/ReadermanBot)
 
 Telegram Bot API를 사용하는 RSS 피드 봇
 
