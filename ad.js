@@ -35,13 +35,6 @@ _.defaults(env, {
 
 const
   message = [
-    '*[광고]*',
-    '개발자가 만든 좋은변호사 찾는 로톡!',
-    '',
-    '변호사가 필요할 땐 로톡.',
-    '로톡 회원 변호사 459명의 분야, 경력, 서비스 요금을 확인하세요.',
-    '8,675개의 상담글 중 나와 유사한 사례를 찾아보고, 바로 법률상담을 시작하세요!',
-    '',
     '[로톡 바로가기](https://www.lawtalk.co.kr/tg1)'
   ].join('\n');
 
@@ -77,7 +70,8 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
     log('Fetched %d users', users.length);
 
     Promise.map(users.map((user) => user.id), (id) => {
-      return bot.sendMessage(id, message, {
+      console.log("MESSAGE");
+      /* return bot.sendMessage(id, message, {
         parse_mode: 'Markdown'
       }).then(() => {
         return Promise.resolve(true);
@@ -85,6 +79,7 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
         console.error(e);
         return Promise.resolve(false);
       });
+      */
     }, {concurrency: 10}).then((results) => {
       log('sent: %d, failed: %d', results.filter((x) => x).length, results.filter((x) => !x).length);
       process.exit(0);
