@@ -45,7 +45,7 @@ module.exports = exports = (bot) => {
         'Welcome to https://42team.org',
         '',
         'Please look video for setup notifer',
-        'http://notifier.m42.cx',
+        'https://hm.ru/bzXRWj',
         'Goodluck',
       ].join('\n'), {
         reply_markup: JSON.stringify({
