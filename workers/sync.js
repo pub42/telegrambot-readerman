@@ -91,9 +91,9 @@ const publishFeed = (bot, feed, fetched, lastRecordLink) => {
             `[${record.title}](${record.link})`,
             `${record.author || ''}`,
             '',
-            `${markdownify(record.summary || record.description).substr(0, 200)}...[더 읽기](${record.link})`
+            `${markdownify(record.summary || record.description).substr(0, 200)}...[read more](${record.link})`
           ].join('\n') : [
-            `*[${fetched.meta.title}] 등록된 글이 없습니다! T0T *`
+            `*[${fetched.meta.title}] Not present *`
           ], {
             parse_mode: 'Markdown'
           });
