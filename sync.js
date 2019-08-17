@@ -20,7 +20,7 @@ const
 const
   log               = debug('telegrambot-reanderman:server'),
   env               = process.env,
-  EXECUTION_TIMEOUT = 1000 * 60 * 10; // 10 minutes
+  EXECUTION_TIMEOUT = 1000 * 60 * 1; // 10 minutes
 
 dotenv.load({
   path: path.join(__dirname, '.env')
