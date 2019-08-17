@@ -80,12 +80,12 @@ module.exports = exports = (bot) => {
       done(url, feed, message);
     }).catch((e) => {
       log(e.stack);
-      bot.sendMessage(message.from.id, '올바르지 않은 URL이거나, 피드가 존재하지 않습니다.');
+      bot.sendMessage(message.from.id, 'Invalid URL or feed does not exist.');
     });
   };
 
   const askUrl = (message, done) => {
-    bot.sendMessage(message.from.id, '추가할 피드의 URL을 알려주세요.', {
+    bot.sendMessage(message.from.id, 'Please provide the URL of the feed you want to add.', {
       reply_markup: JSON.stringify({
         force_reply: true
       })
@@ -101,13 +101,13 @@ module.exports = exports = (bot) => {
         return subscribeFeed(message.from, feed);
       }).then((subscribe) => {
         bot.sendMessage(message.from.id, subscribe.alreadyCreated ?
-          `*${feed.meta.title}* 피드는 이미 구독중입니다.` :
-          `*${feed.meta.title}* 피드를 구독합니다.\n/read 명령어를 통해 피드의 글을 즉시 확인할 수도 있습니다.`, {
+          `*${feed.meta.title}* The feed is already subscribed.` :
+          `*${feed.meta.title}* Subscribe to the feed.\n/readYou can also read the feed's post immediately.`, {
           parse_mode: 'Markdown'
         });
       }).catch((e) => {
         log(e.stack);
-        bot.sendMessage(message.from.id, '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ');
+        bot.sendMessage(message.from.id, 'crying! An error occurred on the server. Please try again later. Sorry for the inconvenience ㅠ _ ㅠ');
       });
     });
   });
