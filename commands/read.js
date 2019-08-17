@@ -74,7 +74,7 @@ module.exports = exports = (bot) => {
       return matches && matches[1] ? getFeed(user, matches[1]) : getFeeds(user);
     }).then((feeds) => {
       if (! feeds.length) {
-        bot.sendMessage(message.from.id, '구독 중인 피드가 아니거나, 구독 중인 피드가 없습니다. +0+');
+        bot.sendMessage(message.from.id, 'The feed is not subscribed or no feeds are subscribed. +0+');
       }
       return Promise.map(feeds, (feed) => fetch(feed.url));
     }).then((feeds) => {
@@ -87,16 +87,16 @@ module.exports = exports = (bot) => {
           `[${record.title}](${record.link})`,
           `${record.author || ''}`,
           '',
-          `${markdownify(record.summary || record.description).substr(0, 200)}...[더 읽기](${record.link})`
+          `${markdownify(record.summary || record.description).substr(0, 200)}...[Read more](${record.link})`
         ].join('\n') : [
-          `*[${feed.meta.title}] 등록된 글이 없습니다! T0T *`
+          `*[${feed.meta.title}] There are no registered post! T0T *`
         ], {
           parse_mode: 'Markdown'
         });
       })
     }).catch((e) => {
       log(e.stack);
-      bot.sendMessage(message.from.id, '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ');
+      bot.sendMessage(message.from.id, 'crying! An error occurred on the server. Please try again later. Sorry for the inconvenience ㅠ _ ㅠ');
     });
   });
 };
