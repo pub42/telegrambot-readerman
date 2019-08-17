@@ -45,7 +45,7 @@ const unsubscribe = (from, numberOrUrl) => {
           if(data.result.n === 0) {
             return resolve({
               removed: false,
-              message: '입력하신 피드로 구독중인 내역이 없습니다! 0_0'
+              message: 'There are no subscriptions for the feed you entered! 0_0'
             });
           }
 
@@ -62,18 +62,18 @@ const unsubscribe = (from, numberOrUrl) => {
 module.exports = exports = (bot) => {
   bot.onText(/\/unsubscribe(?: (.+))?/, (msg, match) => {
     if (!(match && match[1])) {
-      return bot.sendMessage(msg.from.id, '피드 넘버 혹은 URL을 입력해주세요. 피드 넘버는 /list 명령을 통해 확인할 수 있습니다.');
+      return bot.sendMessage(msg.from.id, 'Please enter a feed number or URL. The feed number can be found with the /list command.');
     }
 
     unsubscribe(msg.from, match[1])
     .then((result) => {
       bot.sendMessage(msg.from.id, result.removed ?
         `*${result.feed.title}* 피드를 구독 해제 했습니다. /subscribe 명렁으로 다시 구독하실 수 있습니다. T0T` :
-        `${result.message || '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ'}`
+        `${result.message || 'crying! An error occurred on the server. Please try again later. Sorry for the inconvenience ㅠ _ ㅠ'}`
       , { parse_mode: 'Markdown' });
     }).catch((e) => {
       log(e.stack);
-      bot.sendMessage(msg.from.id, '으앙! 서버에서 에러가 발생했습니다. 나중에 다시 시도해주세요. 불편을 끼쳐드려 죄송합니다 ㅠ_ㅠ');
+      bot.sendMessage(msg.from.id, 'crying! An error occurred on the server. Please try again later. Sorry for the inconvenience ㅠ _ ㅠ');
     })
 
   });
